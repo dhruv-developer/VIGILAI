@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -12,7 +11,6 @@ import {
   AlertTriangle,
   Activity
 } from 'lucide-react';
-import axios from 'axios';
 
 // Mock data for the map visualization
 const mockHotspots = [
@@ -28,7 +26,7 @@ const HotspotsMapPage = () => {
   const [viewMode, setViewMode] = useState<'cluster' | 'heatmap'>('cluster');
   const [hotspots, setHotspots] = useState(mockHotspots);
   const [loading, setLoading] = useState(false);
-  const [selectedHotspot, setSelectedHotspot] = useState(null);
+  const [selectedHotspot, setSelectedHotspot] = useState<any>(null);
   const [stats, setStats] = useState({
     totalIncidents: 124,
     activeHotspots: 6,
@@ -43,7 +41,7 @@ const HotspotsMapPage = () => {
   const fetchHotspots = async () => {
     setLoading(true);
     try {
-      // In a real app, this would fetch from /api/hotspots
+      // Using dummy data for now instead of API call
       // const response = await axios.get('/hotspots');
       // setHotspots(response.data);
       
@@ -68,12 +66,12 @@ const HotspotsMapPage = () => {
   };
 
   const getSeverityBadge = (severity: string) => {
-    const colors = {
-      high: 'destructive',
-      medium: 'secondary',
-      low: 'default'
-    };
-    return colors[severity as keyof typeof colors] || 'default';
+    switch (severity) {
+      case 'high': return 'destructive' as const;
+      case 'medium': return 'secondary' as const;
+      case 'low': return 'default' as const;
+      default: return 'default' as const;
+    }
   };
 
   return (

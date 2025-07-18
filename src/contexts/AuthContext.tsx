@@ -1,109 +1,131 @@
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import axios from 'axios';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface User {
   id: string;
-  email: string;
   name: string;
-  aadharNumber: string;
-  phoneNumber: string;
-  isVerified: boolean;
+  email: string;
+  phone: string;
+  verified: boolean;
 }
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string) => Promise<void>;
-  signup: (userData: any) => Promise<void>;
+  login: (email: string, password: string) => Promise<boolean>;
+  signup: (userData: any) => Promise<boolean>;
   logout: () => void;
-  verifyOTP: (otp: string) => Promise<void>;
-  loading: boolean;
+  verifyOTP: (otp: string) => Promise<boolean>;
   isAuthenticated: boolean;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
-
-interface AuthProviderProps {
-  children: ReactNode;
-}
-
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Configure axios defaults
-  axios.defaults.baseURL = 'http://localhost:5000/api';
-  axios.defaults.withCredentials = true;
-
   useEffect(() => {
-    checkAuthStatus();
+    // Check if user is logged in from localStorage
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+    setLoading(false);
   }, []);
 
-  const checkAuthStatus = async () => {
+  const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      const response = await axios.get('/auth/me');
-      setUser(response.data.user);
+      // Simulate API call with dummy data
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      if (email === 'demo@example.com' && password === 'password') {
+        const dummyUser: User = {
+          id: '1',
+          name: 'Demo User',
+          email: 'demo@example.com',
+          phone: '+91-9876543210',
+          verified: true
+        };
+        setUser(dummyUser);
+        localStorage.setItem('user', JSON.stringify(dummyUser));
+        return true;
+      }
+      
+      return false;
     } catch (error) {
-      console.log('Not authenticated');
-    } finally {
-      setLoading(false);
+      console.error('Login error:', error);
+      return false;
     }
   };
 
-  const login = async (email: string, password: string) => {
+  const signup = async (userData: any): Promise<boolean> => {
     try {
-      const response = await axios.post('/auth/login', { email, password });
-      setUser(response.data.user);
-    } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Login failed');
-    }
-  };
-
-  const signup = async (userData: any) => {
-    try {
-      const response = await axios.post('/auth/signup', userData);
-      return response.data;
-    } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Signup failed');
-    }
-  };
-
-  const verifyOTP = async (otp: string) => {
-    try {
-      const response = await axios.post('/auth/verify-otp', { otp });
-      setUser(response.data.user);
-    } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'OTP verification failed');
-    }
-  };
-
-  const logout = async () => {
-    try {
-      await axios.post('/auth/logout');
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const newUser: User = {
+        id: Math.random().toString(36),
+        name: userData.name,
+        email: userData.email,
+        phone: userData.phone,
+        verified: false
+      };
+      
+      setUser(newUser);
+      localStorage.setItem('user', JSON.stringify(newUser));
+      return true;
     } catch (error) {
-      console.error('Logout error:', error);
-    } finally {
-      setUser(null);
+      console.error('Signup error:', error);
+      return false;
     }
   };
 
-  const value = {
+  const verifyOTP = async (otp: string): Promise<boolean> => {
+    try {
+      // Simulate OTP verification
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      if (otp === '123456' && user) {
+        const verifiedUser = { ...user, verified: true };
+        setUser(verifiedUser);
+        localStorage.setItem('user', JSON.stringify(verifiedUser));
+        return true;
+      }
+      
+      return false;
+    } catch (error) {
+      console.error('OTP verification error:', error);
+      return false;
+    }
+  };
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+  };
+
+  const value: AuthContextType = {
     user,
     login,
     signup,
     logout,
     verifyOTP,
-    loading,
-    isAuthenticated: !!user,
+    isAuthenticated: !!user?.verified,
+    loading
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };
