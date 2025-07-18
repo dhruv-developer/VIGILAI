@@ -11,7 +11,8 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import OTPVerificationPage from './pages/OTPVerificationPage';
 import DashboardPage from './pages/DashboardPage';
-import UploadVideoPage from './pages/UploadVideoPage';
+import RecordVideoPage from './pages/RecordVideoPage';
+import AdminPage from './pages/AdminPage';
 import MyRecordingsPage from './pages/MyRecordingsPage';
 import FileComplaintPage from './pages/FileComplaintPage';
 import ComplaintDetailsPage from './pages/ComplaintDetailsPage';
@@ -48,7 +49,7 @@ const App = () => (
               <Route path="/upload-video" element={
                 <PrivateRoute>
                   <Layout>
-                    <UploadVideoPage />
+                    <RecordVideoPage />
                   </Layout>
                 </PrivateRoute>
               } />
@@ -84,6 +85,13 @@ const App = () => (
                 <PrivateRoute>
                   <Layout>
                     <ProfilePage />
+                  </Layout>
+                </PrivateRoute>
+              } />
+              <Route path="/admin" element={
+                <PrivateRoute>
+                  <Layout>
+                    <AdminPage />
                   </Layout>
                 </PrivateRoute>
               } />

@@ -30,13 +30,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     navigate('/');
   };
 
+  const isAdmin = user?.email === 'admin@example.com'; // Simple admin check
+  
   const navigationItems = [
     { name: 'Dashboard', href: '/dashboard', icon: Home },
-    { name: 'Upload Video', href: '/upload-video', icon: Upload },
+    { name: 'Record Video', href: '/upload-video', icon: Video },
     { name: 'My Recordings', href: '/my-recordings', icon: Video },
     { name: 'File Complaint', href: '/file-complaint', icon: FileText },
     { name: 'Hotspots Map', href: '/hotspots-map', icon: Map },
     { name: 'Profile', href: '/profile', icon: User },
+    ...(isAdmin ? [{ name: 'Admin Panel', href: '/admin', icon: Upload }] : []),
   ];
 
   return (
