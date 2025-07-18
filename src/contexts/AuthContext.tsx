@@ -6,6 +6,8 @@ interface User {
   name: string;
   email: string;
   phone: string;
+  phoneNumber: string;
+  aadharNumber: string;
   verified: boolean;
 }
 
@@ -45,6 +47,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           name: 'Demo User',
           email: 'demo@example.com',
           phone: '+91-9876543210',
+          phoneNumber: '+91-9876543210',
+          aadharNumber: '1234-5678-9012',
           verified: true
         };
         setUser(dummyUser);
@@ -69,6 +73,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         name: userData.name,
         email: userData.email,
         phone: userData.phone,
+        phoneNumber: userData.phone,
+        aadharNumber: userData.aadharNumber || '0000-0000-0000',
         verified: false
       };
       
