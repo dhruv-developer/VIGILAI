@@ -41,6 +41,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Simulate API call with dummy data
       await new Promise(resolve => setTimeout(resolve, 1000));
       
+      // Admin login
+      if (email === 'Admin' && password === 'Admin123') {
+        const adminUser: User = {
+          id: 'admin',
+          name: 'Administrator',
+          email: 'Admin',
+          phone: '+91-9999999999',
+          phoneNumber: '+91-9999999999',
+          aadharNumber: 'ADMIN-0000-0000',
+          verified: true
+        };
+        setUser(adminUser);
+        localStorage.setItem('user', JSON.stringify(adminUser));
+        return true;
+      }
+      
+      // Regular user login (demo)
       if (email === 'demo@example.com' && password === 'password') {
         const dummyUser: User = {
           id: '1',

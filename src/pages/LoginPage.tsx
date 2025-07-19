@@ -33,11 +33,15 @@ const LoginPage = () => {
     setLoading(true);
 
     try {
-      await login(formData.email, formData.password);
-      showSuccess('Login successful!');
-      navigate('/dashboard');
+      const success = await login(formData.email, formData.password);
+      if (success) {
+        showSuccess('Login successful!');
+        navigate('/dashboard');
+      } else {
+        showError('Invalid credentials. Please try again.');
+      }
     } catch (error: any) {
-      showError(error.message);
+      showError(error.message || 'Login failed. Please try again.');
     } finally {
       setLoading(false);
     }

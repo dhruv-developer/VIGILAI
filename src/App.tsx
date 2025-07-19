@@ -13,6 +13,7 @@ import OTPVerificationPage from './pages/OTPVerificationPage';
 import DashboardPage from './pages/DashboardPage';
 import RecordVideoPage from './pages/RecordVideoPage';
 import AdminPage from './pages/AdminPage';
+import AdminPointsView from './pages/AdminPointsView';
 import MyRecordingsPage from './pages/MyRecordingsPage';
 import FileComplaintPage from './pages/FileComplaintPage';
 import ComplaintDetailsPage from './pages/ComplaintDetailsPage';
@@ -92,6 +93,13 @@ const App = () => (
                 <PrivateRoute>
                   <Layout>
                     <AdminPage />
+                  </Layout>
+                </PrivateRoute>
+              } />
+              <Route path="/admin/points" element={
+                <PrivateRoute>
+                  <Layout>
+                    <AdminPointsView />
                   </Layout>
                 </PrivateRoute>
               } />

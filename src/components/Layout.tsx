@@ -30,7 +30,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     navigate('/');
   };
 
-  const isAdmin = user?.email === 'admin@example.com'; // Simple admin check
+  const isAdmin = user?.email === 'Admin'; // Simple admin check
   
   const navigationItems = [
     { name: 'Dashboard', href: '/dashboard', icon: Home },
@@ -39,7 +39,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     { name: 'File Complaint', href: '/file-complaint', icon: FileText },
     { name: 'Hotspots Map', href: '/hotspots-map', icon: Map },
     { name: 'Profile', href: '/profile', icon: User },
-    ...(isAdmin ? [{ name: 'Admin Panel', href: '/admin', icon: Upload }] : []),
+    ...(isAdmin ? [
+      { name: 'Admin Panel', href: '/admin', icon: Upload },
+      { name: 'All Points', href: '/admin/points', icon: Map }
+    ] : []),
   ];
 
   return (
