@@ -42,11 +42,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Admin login
-      if (email === 'Admin' && password === 'Admin123') {
+      if (email === 'admin@citizen.com' && password === 'Admin@123') {
         const adminUser: User = {
           id: 'admin',
           name: 'Administrator',
-          email: 'Admin',
+          email: 'admin@citizen.com',
           phone: '+91-9999999999',
           phoneNumber: '+91-9999999999',
           aadharNumber: 'ADMIN-0000-0000',
