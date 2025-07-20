@@ -10,43 +10,47 @@ All colors MUST be HSL.
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 220 14% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 14% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 14% 20%;
 
-    --primary: 220 91% 52%;
-    --primary-foreground: 210 40% 98%;
+    /* Indian Saffron - Primary color */
+    --primary: 23 100% 59%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Indian Green - Secondary color */
+    --secondary: 130 61% 30%;
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Navy Blue - Accent color */
+    --accent: 220 39% 15%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 220 91% 52%;
+    --ring: 23 100% 59%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Government sidebar theme */
+    --sidebar-background: 220 39% 15%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 23 100% 59%;
+    --sidebar-primary-foreground: 220 39% 15%;
+    --sidebar-accent: 220 30% 25%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 220 30% 20%;
+    --sidebar-ring: 23 100% 59%;
   }
 
   .dark {
@@ -116,21 +120,46 @@ All colors MUST be HSL.
   }
 }
 
-/* Government-themed component styles */
+/* Indian Government-themed component styles */
 @layer components {
+  /* Tricolor gradient for hero sections */
   .gov-gradient {
-    @apply bg-gradient-to-r from-blue-600 to-blue-700;
+    @apply bg-gradient-to-r from-primary via-white to-secondary;
+  }
+  
+  /* Saffron to Navy gradient for headers */
+  .gov-gradient-header {
+    @apply bg-gradient-to-r from-primary to-accent;
   }
   
   .gov-card {
-    @apply bg-white shadow-sm border border-gray-200 rounded-lg;
+    @apply bg-white shadow-md border border-border rounded-lg hover:shadow-lg transition-shadow;
   }
   
   .gov-button-primary {
-    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-md transition-colors;
+    @apply bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-3 rounded-md transition-all duration-200 shadow-sm hover:shadow-md;
   }
   
   .gov-button-secondary {
-    @apply bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium px-4 py-2 rounded-md transition-colors;
+    @apply bg-secondary hover:bg-secondary/90 text-secondary-foreground font-medium px-6 py-3 rounded-md transition-all duration-200 shadow-sm hover:shadow-md;
+  }
+  
+  .gov-button-outline {
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-medium px-6 py-3 rounded-md transition-all duration-200;
+  }
+  
+  /* Indian flag inspired elements */
+  .tricolor-border {
+    @apply border-l-4 border-l-primary relative;
+  }
+  
+  .tricolor-border::before {
+    content: '';
+    @apply absolute left-0 top-1/3 w-1 h-1/3 bg-white;
+  }
+  
+  .tricolor-border::after {
+    content: '';
+    @apply absolute left-0 top-2/3 w-1 h-1/3 bg-secondary;
   }
 }
