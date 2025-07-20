@@ -58,8 +58,8 @@ const SignupPage = () => {
 
     try {
       await signup(formData);
-      showSuccess('Registration successful! Please verify your OTP.');
-      navigate('/verify-otp');
+      showSuccess('Registration successful! Welcome to the platform.');
+      navigate('/dashboard');
     } catch (error: any) {
       showError(error.message);
     } finally {
