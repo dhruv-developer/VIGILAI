@@ -9,48 +9,60 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 220 14% 20%;
+    /* Official Indian Government Colors */
+    --background: 0 0% 98%;
+    --foreground: 0 0% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 14% 20%;
+    --card-foreground: 0 0% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 14% 20%;
+    --popover-foreground: 0 0% 15%;
 
-    /* Indian Saffron - Primary color */
-    --primary: 23 100% 59%;
+    /* Official Saffron - #FF6600 */
+    --primary: 24 100% 50%;
     --primary-foreground: 0 0% 100%;
 
-    /* Indian Green - Secondary color */
-    --secondary: 130 61% 30%;
+    /* Official Indian Green - #138808 */
+    --secondary: 109 83% 29%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    /* Navy Blue - Accent color */
-    --accent: 220 39% 15%;
+    /* Official Navy Blue - #000080 */
+    --accent: 240 100% 25%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Red for important notices */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 23 100% 59%;
+    --border: 0 0% 89%;
+    --input: 0 0% 100%;
+    --ring: 24 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.25rem;
 
-    /* Government sidebar theme */
-    --sidebar-background: 220 39% 15%;
+    /* Government portal sidebar */
+    --sidebar-background: 240 100% 25%;
     --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 23 100% 59%;
-    --sidebar-primary-foreground: 220 39% 15%;
-    --sidebar-accent: 220 30% 25%;
+    --sidebar-primary: 24 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 100% 30%;
     --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 220 30% 20%;
-    --sidebar-ring: 23 100% 59%;
+    --sidebar-border: 240 100% 20%;
+    --sidebar-ring: 24 100% 50%;
+
+    /* Additional government theme variables */
+    --gov-header: 240 100% 25%;
+    --gov-header-foreground: 0 0% 100%;
+    --gov-footer: 0 0% 20%;
+    --gov-footer-foreground: 0 0% 95%;
+    --gov-emblem: 36 100% 50%;
+    --success: 109 83% 29%;
+    --warning: 45 100% 51%;
+    --info: 200 100% 50%;
   }
 
   .dark {
@@ -99,7 +111,19 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    line-height: 1.6;
+  }
+
+  /* Government portal typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    font-weight: 600;
+  }
+
+  /* Official government link styling */
+  a {
+    @apply text-accent hover:text-primary transition-colors duration-200;
   }
 }
 
@@ -120,46 +144,125 @@ All colors MUST be HSL.
   }
 }
 
-/* Indian Government-themed component styles */
+/* Authentic Indian Government Portal Styles */
 @layer components {
-  /* Tricolor gradient for hero sections */
-  .gov-gradient {
-    @apply bg-gradient-to-r from-primary via-white to-secondary;
+  /* Official Government Header */
+  .gov-header {
+    @apply bg-accent text-accent-foreground border-b-4 border-primary shadow-lg;
   }
   
-  /* Saffron to Navy gradient for headers */
-  .gov-gradient-header {
-    @apply bg-gradient-to-r from-primary to-accent;
+  /* Government Portal Navigation */
+  .gov-nav {
+    @apply bg-primary text-primary-foreground shadow-md;
   }
   
+  /* Official tricolor gradient */
+  .gov-tricolor {
+    background: linear-gradient(to right, 
+      hsl(var(--primary)) 0%, 
+      hsl(var(--primary)) 33.33%, 
+      white 33.33%, 
+      white 66.66%, 
+      hsl(var(--secondary)) 66.66%, 
+      hsl(var(--secondary)) 100%);
+    height: 6px;
+  }
+  
+  /* Government content cards */
   .gov-card {
-    @apply bg-white shadow-md border border-border rounded-lg hover:shadow-lg transition-shadow;
+    @apply bg-card border border-border rounded shadow-sm hover:shadow-md transition-shadow duration-200;
   }
   
-  .gov-button-primary {
-    @apply bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-3 rounded-md transition-all duration-200 shadow-sm hover:shadow-md;
+  .gov-card-header {
+    @apply bg-gradient-to-r from-accent to-accent/90 text-accent-foreground px-4 py-3 rounded-t font-semibold;
   }
   
-  .gov-button-secondary {
-    @apply bg-secondary hover:bg-secondary/90 text-secondary-foreground font-medium px-6 py-3 rounded-md transition-all duration-200 shadow-sm hover:shadow-md;
+  /* Official government buttons */
+  .gov-btn-primary {
+    @apply bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6 py-3 rounded shadow hover:shadow-md transition-all duration-200 border-2 border-primary;
   }
   
-  .gov-button-outline {
-    @apply border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-medium px-6 py-3 rounded-md transition-all duration-200;
+  .gov-btn-secondary {
+    @apply bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-6 py-3 rounded shadow hover:shadow-md transition-all duration-200 border-2 border-secondary;
   }
   
-  /* Indian flag inspired elements */
-  .tricolor-border {
-    @apply border-l-4 border-l-primary relative;
+  .gov-btn-outline {
+    @apply bg-white border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground font-semibold px-6 py-3 rounded transition-all duration-200;
   }
   
-  .tricolor-border::before {
-    content: '';
-    @apply absolute left-0 top-1/3 w-1 h-1/3 bg-white;
+  /* Notice board styling */
+  .gov-notice {
+    @apply bg-yellow-50 border-l-4 border-warning p-4 my-4;
   }
   
-  .tricolor-border::after {
-    content: '';
-    @apply absolute left-0 top-2/3 w-1 h-1/3 bg-secondary;
+  .gov-alert {
+    @apply bg-red-50 border-l-4 border-destructive p-4 my-4;
+  }
+  
+  .gov-success {
+    @apply bg-green-50 border-l-4 border-success p-4 my-4;
+  }
+  
+  /* Official form styling */
+  .gov-form {
+    @apply bg-white p-6 rounded shadow border border-border;
+  }
+  
+  .gov-form-field {
+    @apply border border-border rounded px-3 py-2 focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200;
+  }
+  
+  .gov-form-label {
+    @apply font-semibold text-foreground mb-2 block;
+  }
+  
+  /* Government table styling */
+  .gov-table {
+    @apply w-full border-collapse border border-border bg-white rounded;
+  }
+  
+  .gov-table th {
+    @apply bg-accent text-accent-foreground p-3 text-left font-semibold border border-border;
+  }
+  
+  .gov-table td {
+    @apply p-3 border border-border;
+  }
+  
+  .gov-table tr:nth-child(even) {
+    @apply bg-gray-50;
+  }
+  
+  /* Status indicators */
+  .status-active {
+    @apply bg-success text-white px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  .status-pending {
+    @apply bg-warning text-white px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  .status-inactive {
+    @apply bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  /* Government portal footer */
+  .gov-footer {
+    @apply bg-accent text-accent-foreground border-t-4 border-primary;
+  }
+  
+  /* Official emblem/logo area */
+  .gov-emblem {
+    @apply border-4 border-primary rounded-full p-2 bg-white;
+  }
+  
+  /* Breadcrumb navigation */
+  .gov-breadcrumb {
+    @apply text-sm text-muted-foreground bg-gray-50 px-4 py-2 border-b border-border;
+  }
+  
+  /* Service links */
+  .gov-service-link {
+    @apply block p-4 bg-white border border-border rounded hover:bg-gray-50 hover:border-primary transition-all duration-200 text-accent hover:text-primary;
   }
 }
